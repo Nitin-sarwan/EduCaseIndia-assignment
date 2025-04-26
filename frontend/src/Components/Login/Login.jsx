@@ -12,11 +12,12 @@ const Login = () => {
     e.preventDefault();
     const newErrors={};
     const newemail=email.trim();
-    if (password.length < 8) { newErrors.password = "Password should be more than 8 characters" }
+    if (email.trim().length == 0) { newErrors.email = "Email address is required" }
+    if (password.trim().length == 0) { newErrors.password = "Password is required" }
+    if (password.length < 8 && password.length>0) { newErrors.password = "Password should be more than 8 characters" }
     if (password.length > 20) { newErrors.password = "Password should be less than 20 characters" }
-    if (!email.endsWith('@gmail.com')) { newErrors.email = "Email should be ended with @gmail.com" }
+    if (!email.endsWith('@gmail.com') && email.trim().length >0 ) { newErrors.email = "Invalid format!" }
     if (email.includes(' ')) { newErrors.email = "Invalid format!" }
-    if (newemail.length < 11) { newErrors.email = "Invalid fotmat!" }
     setError(newErrors);
     if (Object.keys(newErrors).length > 0) {
       return;
@@ -43,7 +44,6 @@ const Login = () => {
              placeholder="Enter email address"
              value={email}
              onChange={(e)=>setEmail(e.target.value)}
-              required
              />
              {errors.email && <span className="error">{errors.email}</span>}
             </div>
@@ -54,7 +54,7 @@ const Login = () => {
             placeholder="Enter password"
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
-            required />
+            />
             {errors.password && <span className="error">{errors.password}</span>}
             </div>
             <button className="loging-button" type="submit">Login</button>
