@@ -20,6 +20,9 @@
     width:50%;
     font-size:12px;
 }
+span {
+    color: red;
+}
 .p{
     width:60%;
     color:#C8CACC;
@@ -27,7 +30,7 @@
 .form-input{
     display: flex;
     flex-direction:column;
-    gap:10px;
+    gap:20px;
 }
 .form-group{
     display:flex;

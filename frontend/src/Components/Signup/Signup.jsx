@@ -14,15 +14,18 @@ const Signup = () => {
   const handleSubmit=(e)=>{
     e.preventDefault();
     // Handle form submission logic here
+    const newemail=emailaddress.trim();
     const newErrors={};
-    if(fullname.length<5){ newErrors.fullname="Name should be more than 5 characters"}
-    if(phonenumber.length<10){ newErrors.phonenumber="Phone number should be 10 digits"}
-    if(phonenumber.length>10){ newErrors.phonenumber="Phone number should be 10 digits"}
+    if(fullname.trim().length == 0){ newErrors.fullname="Full name is required"}
+    if(phonenumber.length<10){ newErrors.phonenumber="This phone number is invalid"}
+    if (phonenumber.length > 10) { newErrors.phonenumber ="This phone number is invalid"}
     if(password.length<8){ newErrors.password="Password should be more than 8 characters"}
     if(password.length>20){ newErrors.password="Password should be less than 20 characters"}
     if(companyname.length<5){ newErrors.companyname="Company name should be more than 5 characters"}
     if(companyname.length>20){ newErrors.companyname="Company name should be less than 20 characters"}
     if(!emailaddress.endsWith('@gmail.com')){ newErrors.emailaddress="Email should be ended with @gmail.com"}
+    if(emailaddress.includes(' ')){ newErrors.emailaddress="Invalid format!"}
+    if(newemail.length<11){ newErrors.emailaddress="Invalid fotmat!"}
     setError(newErrors);
     if(Object.keys(newErrors).length>0){
       return;
@@ -61,8 +64,6 @@ const Signup = () => {
              placeholder="Enter your full name"
              value={fullname}
              onChange={(e)=>setFullname(e.target.value)}
-             required 
-             minLength={5}
               />
               {errors.fullname && <span className="error">{errors.fullname}</span>}
             </div>
@@ -74,9 +75,6 @@ const Signup = () => {
             value={phonenumber}
             onChange={(e)=>setPhonenumber(e.target.value)}
             required
-            minLength={10}
-            maxLength={10}
-            pattern="[0-9]{10}"
             />
             {errors.phonenumber && <span className="error">{errors.phonenumber}</span>}
             </div>
@@ -97,8 +95,7 @@ const Signup = () => {
             value={password}
             onChange={(e)=>setPassword(e.target.value)}
             required
-            minLength={8}
-            maxLength={20}
+           
             />
             {errors.password && <span className="error">{errors.password}</span>}
             </div>
